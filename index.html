@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gelbooru</title>
+    <style>
+    p, a, span, h1, h2, h3, li {
+      font-family: arial;
+    }
+    
+    img {
+      border: solid;
+      max-width: 30%;
+      height: auto
+    }
+    
+    input, button {
+      padding: 5px 8px;
+      margin: 8px 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      text-align: center; 
+    }
+    </style>
+    <script>
+    function getPost() {
+      const base_url = "http://gelbooru.com/index.php?page=dapi&s=post&q=index&api_key=aeb23a8789870dec258476f4ed968d474f4e4cf13074549fef5779abb659df22&user_id=864054&json=1&limit=1"
+      var tags = document.getElementById("tagsearch").value.split(" ");
+      var tag_str = "&tags=";
+      tags.forEach(function(item, index, array) {
+        tag_str = tag_str + item + "+";
+      
+      console.log(base_url + tag_str);
+      result = fetch(base_url + tag_str).json()[0];
+      
+      document.getElementById("gel_img").src = result["file_url"]
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <div width=30% style="overflow: hidden">
+      <h1>Gelbooru Browser</h1>
+      <img src=white.png id="gel_img"><br>
+      <input type="text" id="tagsearch" style="width: 30%; display: inline-block;">
+      <button id="submit" onclick="getPost()">Search</button>
+      <p>By searching for an image, you expect to see NSFW results, and you <strong>will not</strong> use the service if you are under 18 years of age.</p>
+    </div>
+  </body>
+</html>
